@@ -6,7 +6,7 @@ import { useState } from "react";
 import ProductForm from "../ProductForm";
 import Link from "next/link";
 
-export default function Product({ onSubmit }) {
+export default function Product({ onSubmit, onDelete }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -34,6 +34,14 @@ export default function Product({ onSubmit }) {
         }}
       >
         Edit
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          onDelete(id);
+        }}
+      >
+        Delete
       </button>
       {isEditMode && <ProductForm onSubmit={onSubmit} isEditing />}
       {data.reviews.length > 0 && <Comments reviews={data.reviews} />}

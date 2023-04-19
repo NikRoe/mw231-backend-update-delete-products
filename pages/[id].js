@@ -41,13 +41,26 @@ export default function ProductDetailsPage() {
     push("/");
   }
 
+  async function handleDeleteProduct(id) {
+    const response = await fetch(`/api/products/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      console.log(response.status);
+    } else {
+      await response.json();
+      push("/");
+    }
+  }
+
   if (isMutating) {
     return <h1>Submitting your changes</h1>;
   }
 
   return (
     <>
-      <Product onSubmit={handleEditProduct} />
+      <Product onSubmit={handleEditProduct} onDelete={handleDeleteProduct} />
     </>
   );
 }
